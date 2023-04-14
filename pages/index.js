@@ -1,4 +1,3 @@
-import SamniPicture from '../public/samni.png'
 import { useState } from 'react'
 
 export default function Home() {
@@ -22,7 +21,6 @@ export default function Home() {
       })
       .finally(() => {
         setLoading(false)
-        setQuery('')
       })
   }
   return (
