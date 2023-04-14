@@ -32,7 +32,7 @@ export default function Home() {
     >
       <header className='flex justify-center items-center'>
         <div className='text'>
-          <h1 className='text-3xl font-bold'>Samni'ye hoş geldin</h1>
+          <h1 className='text-3xl font-bold'>Samni&apos;ye hoş geldin</h1>
           <p className='font-light text-center'>Rüyanı yorumlamak için sabırsızlanıyorum</p>
         </div>
       </header>
