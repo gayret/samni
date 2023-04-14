@@ -21,7 +21,7 @@ export default function Home() {
       })
       .finally(() => {
         setLoading(false)
-setQuery("")
+        setQuery('')
       })
   }
   return (
@@ -60,7 +60,6 @@ setQuery("")
           <div id='chat-question-input' className='grid grid-flow-col gap-1'>
             <form onSubmit={onSubmit} className='flex gap-x-4'>
               <textarea
-                value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 id='question'
                 name='question'
