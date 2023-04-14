@@ -4,6 +4,7 @@ export default function Home() {
   const [query, setQuery] = useState('')
   const [answers, setAnswers] = useState([])
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(false)
 
   const onSubmit = (e) => {
     setLoading(true)
@@ -18,6 +19,7 @@ export default function Home() {
       })
       .catch((error) => {
         console.log(`%cerror`, 'color: red; font-size: 4em', error)
+        setError(true)
       })
       .finally(() => {
         setLoading(false)
@@ -44,7 +46,7 @@ export default function Home() {
           </div>
         )}
 
-        {!loading && (
+        {!loading && !error && (
           <div id='chat-answers'>
             {answers &&
               answers.map((answer) => (
@@ -56,9 +58,9 @@ export default function Home() {
               ))}
           </div>
         )}
-        {!loading && (
+        {!loading && !error && (
           <div id='chat-question-input' className='grid grid-flow-col gap-1'>
-            <form onSubmit={onSubmit} className='flex gap-x-4'>
+            <form onSubmit={onSubmit} className='flex gap-x-1'>
               <textarea
                 onChange={(e) => setQuery(e.target.value)}
                 id='question'
@@ -68,6 +70,12 @@ export default function Home() {
                 placeholder='Rahatça anlatabilirsin'
                 className='w-full p-2 border border-gray-300 rounded-md text-gray-900 resize-none'
                 maxLength={350}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault()
+                    onSubmit(e)
+                  }
+                }}
               ></textarea>
               <button
                 disabled={query.length < 1}
@@ -78,6 +86,19 @@ export default function Home() {
                 Gönder
               </button>
             </form>
+          </div>
+        )}
+
+        {error && (
+          <div className='flex flex-col items-center'>
+            <p className='text-red-500 text-center'>Bir hata oluştu. Bu bazen olur.</p>
+            <p className='text-red-500 text-center'>Lütfen daha sonra tekrar deneyin.</p>
+            <button
+              onClick={() => setError(false)}
+              className='mt-2 p-2 text-white bg-gray-700 rounded-md'
+            >
+              Tekrar denemek istiyorum
+            </button>
           </div>
         )}
       </main>
