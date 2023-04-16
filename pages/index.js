@@ -2,12 +2,14 @@ import { useState } from 'react'
 
 export default function Home() {
   const [query, setQuery] = useState('')
+  const [questions, setQuestions] = useState([])
   const [answers, setAnswers] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
 
   const onSubmit = (e) => {
     setLoading(true)
+    setQuestions([...questions, query])
     e.preventDefault()
     fetch('/api/generate-comment', {
       method: 'post',
@@ -16,11 +18,11 @@ export default function Home() {
       .then((res) => res.json())
       .then((data) => {
         setAnswers([...answers, data.content])
-        setQuery('')
       })
-      .catch((error) => {
-        console.log(`%cerror`, 'color: red; font-size: 4em', error)
+      .catch(() => {
         setError(true)
+        setQuestions([])
+        setAnswers([])
       })
       .finally(() => {
         setLoading(false)
@@ -47,14 +49,23 @@ export default function Home() {
         )}
 
         {!loading && !error && (
-          <div id='chat-answers'>
+          <div id='chat-answers' className='max-w-2xl'>
             {answers &&
-              answers.map((answer) => (
-                <div id='chat-answer' className='flex flex-col items-center w-[30vw]' key={answer}>
-                  <div id='chats' className='w-full'>
-                    <p className='text-sm font-thin mb-3 bg-black text-white p-5 font-mono'>
-                      {answer}
-                    </p>
+              answers.map((answer, answerIndex) => (
+                <div>
+                  <div id='chat-question' className='flex flex-col items-center'>
+                    <div id='chats' className='w-full'>
+                      <p className='text-sm font-thin mb-3 bg-gray-700 text-white float-right p-5 w-max max-w-xs'>
+                        {questions[answerIndex]}
+                      </p>
+                    </div>
+                  </div>
+                  <div id='chat-answer' className='flex flex-col items-center' key={answer}>
+                    <div id='chats' className='w-full'>
+                      <p className='text-sm font-thin mb-3 bg-black text-white p-5 font-mono'>
+                        {answer}
+                      </p>
+                    </div>
                   </div>
                 </div>
               ))}
