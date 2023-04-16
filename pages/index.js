@@ -14,6 +14,7 @@ export default function Home() {
     fetch('/api/generate-comment', {
       method: 'post',
       body: query,
+      timeout: 10000,
     })
       .then((res) => res.json())
       .then((data) => {
