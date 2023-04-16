@@ -52,7 +52,7 @@ export default function Home() {
           <div id='chat-answers' className='max-w-2xl'>
             {answers &&
               answers.map((answer, answerIndex) => (
-                <div>
+                <div key={answerIndex}>
                   <div id='chat-question' className='flex flex-col items-center'>
                     <div id='chats' className='w-full'>
                       <p className='text-sm font-thin mb-3 bg-gray-700 text-white float-right p-5 w-max max-w-xs'>
