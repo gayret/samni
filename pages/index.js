@@ -52,7 +52,9 @@ export default function Home() {
               answers.map((answer) => (
                 <div id='chat-answer' className='flex flex-col items-center w-[30vw]' key={answer}>
                   <div id='chats' className='w-full'>
-                    <p className='text-sm font-thin mb-3 bg-black p-5 font-mono'>{answer}</p>
+                    <p className='text-sm font-thin mb-3 bg-black text-white p-5 font-mono'>
+                      {answer}
+                    </p>
                   </div>
                 </div>
               ))}
