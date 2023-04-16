@@ -16,6 +16,7 @@ export default function Home() {
       .then((res) => res.json())
       .then((data) => {
         setAnswers([...answers, data.content])
+        setQuery('')
       })
       .catch((error) => {
         console.log(`%cerror`, 'color: red; font-size: 4em', error)
@@ -23,7 +24,6 @@ export default function Home() {
       })
       .finally(() => {
         setLoading(false)
-        setQuery('')
       })
   }
   return (
