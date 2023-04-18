@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import axios from 'axios'
 
 export default function Home() {
   const [query, setQuery] = useState('')
@@ -8,17 +9,13 @@ export default function Home() {
   const [error, setError] = useState(false)
 
   const onSubmit = (e) => {
+    e.preventDefault()
     setLoading(true)
     setQuestions([...questions, query])
-    e.preventDefault()
-    fetch('/api/generate-comment', {
-      method: 'post',
-      body: query,
-      timeout: 10000,
-    })
-      .then((res) => res.json())
+    axios
+      .post('/api/generate-comment', { query }, { timeout: 100000 })
       .then((data) => {
-        setAnswers([...answers, data.content])
+        setAnswers([...answers, data.data.content])
       })
       .catch(() => {
         setError(true)
