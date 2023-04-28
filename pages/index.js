@@ -13,7 +13,7 @@ export default function Home() {
     setLoading(true)
     setQuestions([...questions, query])
     axios
-      .post('/api/generate-comment', { query }, { timeout: 100000 })
+      .post('/api/generate-comment', { query }, { timeout: 1000000 })
       .then((data) => {
         setAnswers([...answers, data.data.content])
       })
